@@ -144,7 +144,7 @@ class BinarySearchTree {
         }
       }
     } else {
-      return "node does not exist";
+      throw new Error(`node with value ${val} does not exist`);
     }
   }
 
@@ -317,3 +317,5 @@ class BinarySearchTree {
     return nL;
   }
 }
+
+module.exports = { BinarySearchTree };

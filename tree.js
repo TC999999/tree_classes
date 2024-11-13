@@ -9,16 +9,15 @@ class Node {
 
     while (dfsStack.length) {
       let current = dfsStack.pop();
-      console.log(current);
 
       if (current.val === val) {
-        return true;
+        return current;
       }
       for (let child of current.children) {
         dfsStack.push(child);
       }
     }
-    return false;
+    return undefined;
   }
 
   bfs(val) {
@@ -26,17 +25,16 @@ class Node {
 
     while (bfsQueue.length) {
       let current = bfsQueue.shift();
-      console.log(current);
 
       if (current.val === val) {
-        return true;
+        return current;
       }
       for (let child of current.children) {
         bfsQueue.push(child);
       }
     }
 
-    return false;
+    return undefined;
   }
 }
 
@@ -45,14 +43,17 @@ class Tree {
     this.root = root;
   }
 
+  // Searches for a value using depth first search
   DFS(val) {
     return this.root.dfs(val);
   }
 
+  // Searches for a value using breadth first search
   BFS(val) {
     return this.root.bfs(val);
   }
 
+  // adds a child node with the inputted leaf value to a branch node with the inputted branch value
   addChild(branch, leaf) {
     let searchQueue = [this.root];
     while (searchQueue.length) {
@@ -60,16 +61,17 @@ class Tree {
       if (currentNode.val === branch) {
         let newChild = new Node(leaf);
         currentNode.children.push(newChild);
-        return "Branch found. Lead added.";
+        return;
       }
       for (let child of currentNode.children) {
         searchQueue.push(child);
       }
     }
 
-    return "Branch not found.";
+    throw new Error("branch value not found");
   }
 
+  //returns the sum of all values of the tree together if all the values are numbers
   sumValues() {
     let total = 0;
     let numQueue = [this.root];
@@ -83,6 +85,7 @@ class Tree {
     return total;
   }
 
+  // returns the number of even numbers on the tree
   countEvens() {
     let total = 0;
     let numQueue = [this.root];
@@ -98,6 +101,7 @@ class Tree {
     return total;
   }
 
+  // returns the number of values greater than the inputted value
   numGreater(val) {
     let total = 0;
     let numQueue = [this.root];
@@ -113,3 +117,5 @@ class Tree {
     return total;
   }
 }
+
+module.exports = { Tree, Node };

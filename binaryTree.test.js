@@ -75,7 +75,7 @@ describe("Binary Search Tree", function () {
     expect(nParent.right.right).toEqual(right);
   });
 
-  test("remove(): removes node w/ 2 children replaces the removed node with the node with the next largest value in the tree, the replacement node replaces its children", function () {
+  test("remove(): removes node w/ 2 children replaces the removed node with the node with the next largest value in the tree and the replacement node replaces its children", function () {
     let n = bst.find(10);
     expect(n).toBeDefined();
     expect(n.val).toEqual(10);

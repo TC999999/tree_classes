@@ -18,22 +18,23 @@ describe("Ordinary Tree", function () {
 
   test("dfs", function () {
     let dfs = t.DFS(4);
-    expect(dfs).not.toBe(undefined);
+
+    expect(dfs).toBeDefined();
+    expect(dfs.val).toEqual(4);
   });
 
   test("dfs fails for nonexistent nodes", function () {
-    let dfs = t.DFS(10);
-    expect(dfs).toBe(undefined);
+    expect(t.DFS(10)).toBeUndefined();
   });
 
   test("bfs", function () {
     let bfs = t.BFS(4);
-    expect(bfs).not.toBe(undefined);
+    expect(bfs).toBeDefined();
+    expect(bfs.val).toEqual(4);
   });
 
-  test("bfs", function () {
-    let bfs = t.BFS(10);
-    expect(bfs).toBe(undefined);
+  test("bfs fails for nonexistent nodes", function () {
+    expect(t.BFS(10)).toBeUndefined();
   });
 
   test("addChild", function () {
@@ -47,32 +48,25 @@ describe("Ordinary Tree", function () {
   });
 
   test("sumValues", function () {
-    let sum = t.sumValues();
-    expect(sum).toEqual(36);
+    expect(t.sumValues()).toEqual(36);
 
     t.addChild(3, 10);
-    let sum2 = t.sumValues();
-    expect(sum2).toEqual(46);
+    expect(t.sumValues()).toEqual(46);
   });
 
   test("countEvens", function () {
-    let evens = t.countEvens();
-    expect(evens).toEqual(5);
+    expect(t.countEvens()).toEqual(5);
 
     t.addChild(3, 12);
-    let evens2 = t.countEvens();
-    expect(evens2).toEqual(6);
+    expect(t.countEvens()).toEqual(6);
 
     t.addChild(3, 11);
-    let evens3 = t.countEvens();
-    expect(evens3).toEqual(6);
+    expect(t.countEvens()).toEqual(6);
   });
 
   test("numGreater", function () {
-    let numGreater = t.numGreater(7);
-    expect(numGreater).toEqual(1);
+    expect(t.numGreater(7)).toEqual(1);
 
-    let numGreater2 = t.numGreater(4);
-    expect(numGreater2).toEqual(4);
+    expect(t.numGreater(4)).toEqual(4);
   });
 });

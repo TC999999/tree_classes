@@ -14,16 +14,17 @@ describe("Binary Search Tree", function () {
     bst.insert(11);
   });
 
-  test("find", function () {
+  test("find() returns a node that has the inputted value", function () {
     let findNode = bst.find(12);
     expect(findNode).toBeDefined();
+    expect(findNode.val).toEqual(12);
   });
 
-  test("fail to find nonexistent node", function () {
+  test("find() fails to find nonexistent node", function () {
     expect(bst.find(13)).toBeUndefined();
   });
 
-  test("insert", function () {
+  test("insert() creates a new node with the inputted value at the correct place", function () {
     expect(bst.find(13)).toBeUndefined();
 
     bst.insert(13);
@@ -32,16 +33,17 @@ describe("Binary Search Tree", function () {
     expect(bst.find(13).val).toEqual(13);
 
     expect(bst.findParent(13).val).toEqual(12);
+    expect(bst.findParent(13).right.val).toEqual(13);
   });
 
-  test("fail to insert already existing node", function () {
+  test("insert() fails to insert already existing node", function () {
     expect(bst.find(12)).toBeDefined();
     expect(() => bst.insert(12)).toThrow(
       "Value is already in Binary Search Tree"
     );
   });
 
-  test("remove node w/o children", function () {
+  test("remove(): removes node w/o children", function () {
     let n = bst.find(50);
     expect(n).toBeDefined();
     expect(n.left).toBeNull();
@@ -57,7 +59,7 @@ describe("Binary Search Tree", function () {
     expect(nParent.left).toBeNull();
   });
 
-  test("remove node w/ 1 child", function () {
+  test("remove(): removes node w/ 1 child and gives that child to its parent node", function () {
     let n = bst.find(12);
     let right = n.right;
     expect(n).toBeDefined();
@@ -73,7 +75,7 @@ describe("Binary Search Tree", function () {
     expect(nParent.right.right).toEqual(right);
   });
 
-  test("remove node w/ 2 children", function () {
+  test("remove(): removes node w/ 2 children replaces the removed node with the node with the next largest value in the tree, the replacement node replaces its children", function () {
     let n = bst.find(10);
     expect(n).toBeDefined();
     expect(n.val).toEqual(10);
@@ -90,7 +92,7 @@ describe("Binary Search Tree", function () {
     expect(nParent.left.right.val).toEqual(12);
   });
 
-  test("remove root node", function () {
+  test("remove(): removes root node", function () {
     let n = bst.root;
     expect(n.val).toEqual(15);
     expect(n.left.val).toEqual(10);
@@ -103,12 +105,12 @@ describe("Binary Search Tree", function () {
     expect(n2.right.val).toEqual(50);
   });
 
-  test("fails to remove nonexistent node", function () {
+  test("remove(): fails to remove nonexistent node", function () {
     expect(bst.find(13)).toBeUndefined();
     expect(() => bst.remove(13)).toThrow("node with value 13 does not exist");
   });
 
-  test("dfsPreOrder", function () {
+  test("dfsPreOrder() returns an array searched with depth-first search pre-order", function () {
     expect(bst.dfsPreOrder()).toEqual([15, 10, 1, 5, 12, 11, 20, 50]);
 
     bst.insert(17);
@@ -118,7 +120,7 @@ describe("Binary Search Tree", function () {
     expect(bst.dfsPreOrder()).toEqual([15, 11, 1, 5, 12, 20, 17, 50]);
   });
 
-  test("dfsInOrder", function () {
+  test("dfsInOrder() returns an array searched with depth-first search in-order", function () {
     expect(bst.dfsInOrder()).toEqual([1, 5, 10, 11, 12, 15, 20, 50]);
 
     bst.insert(17);
@@ -128,7 +130,7 @@ describe("Binary Search Tree", function () {
     expect(bst.dfsInOrder()).toEqual([1, 5, 11, 12, 15, 17, 20, 50]);
   });
 
-  test("dfsPostOrder", function () {
+  test("dfsPostOrder() returns an array searched with depth-first search post-order", function () {
     expect(bst.dfsPostOrder()).toEqual([5, 1, 11, 12, 10, 50, 20, 15]);
 
     bst.insert(17);
@@ -138,7 +140,7 @@ describe("Binary Search Tree", function () {
     expect(bst.dfsPostOrder()).toEqual([5, 1, 12, 11, 17, 50, 20, 15]);
   });
 
-  test("bfs", function () {
+  test("bfs() returns an array searched with breadth-first search", function () {
     expect(bst.bfs()).toEqual([15, 10, 20, 1, 12, 50, 5, 11]);
 
     bst.insert(17);
@@ -149,7 +151,7 @@ describe("Binary Search Tree", function () {
     expect(bst.bfs()).toEqual([15, 11, 20, 1, 12, 17, 50, 5]);
   });
 
-  test("minDepth", function () {
+  test("minDepth() returns the minimum depth of the tree", function () {
     expect(bst.minDepth()).toEqual(3);
 
     bst.remove(50);
@@ -160,7 +162,7 @@ describe("Binary Search Tree", function () {
     expect(bst.minDepth()).toEqual(4);
   });
 
-  test("maxDepth", function () {
+  test("maxDepth() returns the maximum depth of the tree", function () {
     expect(bst.maxDepth()).toEqual(4);
 
     bst.remove(5);
